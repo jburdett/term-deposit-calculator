@@ -9,17 +9,13 @@ class TermDeposit
   end
 
   def final_balance
-    @start_amount + interest_earned
-  end
-
-  def interest_earned
     total_interest = 0
     reinvestment_cycles = @investment_term / reinvestment_length
     reinvestment_period = MONTHS_IN_YEAR / reinvestment_length
     reinvestment_cycles.times do
       total_interest += (@start_amount + total_interest) * (@interest_rate / 100) / reinvestment_period
     end
-    total_interest.round()
+    @start_amount + total_interest.round()
   end
 
   def reinvestment_length

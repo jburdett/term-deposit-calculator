@@ -30,39 +30,11 @@ describe TermDeposit do
       end
     end
 
-    describe 'with different interest earned' do
-      let(:interest_earned) { 500 }
-
-      before do
-        allow(term_deposit).to receive(:interest_earned).and_return(interest_earned)
-      end
-
-      it 'calculates final balance based on that amount' do
-        expect(final_balance).to eql(start_amount + interest_earned)
-      end
-    end
-  end
-
-  describe '#interest_earned' do
-    let(:interest_earned) { term_deposit.interest_earned }
-
-    it 'calculates the correct interest' do
-      expect(interest_earned).to eql(330)
-    end
-
-    describe 'with different starting amount' do
-      let(:start_amount) { 30000 }
-
-      it 'still calculates the correct interest' do
-        expect(interest_earned).to eql(990)
-      end
-    end
-
     describe 'with different interest rate' do
       let(:interest_rate) { 1.0 }
 
       it 'still calculates the correct interest' do
-        expect(interest_earned).to eql(300)
+        expect(final_balance).to eql(10300)
       end
     end
 
@@ -70,7 +42,7 @@ describe TermDeposit do
       let(:investment_term) { 24 }
 
       it 'still calculates the correct interest' do
-        expect(interest_earned).to eql(220)
+        expect(final_balance).to eql(10220)
       end
     end
 
@@ -81,7 +53,7 @@ describe TermDeposit do
         let(:interest_frequency) { :at_maturity }
 
         it 'still calculates the correct interest' do
-          expect(interest_earned).to eql(3300)
+          expect(final_balance).to eql(103300)
         end
       end
 
@@ -89,7 +61,7 @@ describe TermDeposit do
         let(:interest_frequency) { :monthly }
 
         it 'still calculates the correct interest' do
-          expect(interest_earned).to eql(3353)
+          expect(final_balance).to eql(103353)
         end
       end
 
@@ -97,7 +69,7 @@ describe TermDeposit do
         let(:interest_frequency) { :quarterly }
 
         it 'still calculates the correct interest' do
-          expect(interest_earned).to eql(3350)
+          expect(final_balance).to eql(103350)
         end
       end
 
@@ -105,7 +77,7 @@ describe TermDeposit do
         let(:interest_frequency) { :annually }
 
         it 'still calculates the correct interest' do
-          expect(interest_earned).to eql(3336)
+          expect(final_balance).to eql(103336)
         end
       end
     end
