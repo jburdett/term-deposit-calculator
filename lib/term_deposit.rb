@@ -9,25 +9,30 @@ class TermDeposit
   end
 
   def final_balance
-    total_interest = 0
-    reinvestment_cycles = @investment_term / reinvestment_length
-    reinvestment_period = MONTHS_IN_YEAR / reinvestment_length
-    reinvestment_cycles.times do
-      total_interest += (@start_amount + total_interest) * (@interest_rate / 100) / reinvestment_period
-    end
-    @start_amount + total_interest.round()
+    result = if @interest_frequency == :at_maturity
+               @start_amount * (1 + interest_rate_decimal * investment_term_years)
+             else
+               @start_amount * (1 + interest_rate_decimal / compounding_frequency) ** (compounding_frequency * investment_term_years)
+             end
+    result.round()
   end
 
-  def reinvestment_length
+  def compounding_frequency
     case @interest_frequency
     when :monthly
-      1
-    when :quarterly
-      3
-    when :annually
       12
+    when :quarterly
+      4
     else
-      @investment_term
+      1
     end
+  end
+
+  def investment_term_years
+    @investment_term / MONTHS_IN_YEAR
+  end
+
+  def interest_rate_decimal
+    @interest_rate / 100.0
   end
 end

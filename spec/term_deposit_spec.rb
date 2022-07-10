@@ -82,4 +82,50 @@ describe TermDeposit do
       end
     end
   end
+
+  describe '#compounding_frequency' do
+    let(:compounding_frequency) { term_deposit.compounding_frequency }
+
+    describe 'for monthly frequency' do
+      let(:interest_frequency) { :monthly }
+
+      it 'occurs 12 times' do
+        expect(compounding_frequency).to eql(12)
+      end
+    end
+
+    describe 'for quarterly frequency' do
+      let(:interest_frequency) { :quarterly }
+
+      it 'occurs 4 times' do
+        expect(compounding_frequency).to eql(4)
+      end
+    end
+
+    describe 'for annual frequency' do
+      let(:interest_frequency) { :annually }
+
+      it 'occurs once' do
+        expect(compounding_frequency).to eql(1)
+      end
+    end
+  end
+
+  describe '#investment_term_years' do
+    let(:investment_term_years) { term_deposit.investment_term_years }
+    let(:investment_term) { 30 }
+
+    it 'converts number of months to decimal number of years' do
+      expect(investment_term_years).to eql(2.5)
+    end
+  end
+
+  describe '#interest_rate_decimal' do
+    let(:interest_rate_decimal) { term_deposit.interest_rate_decimal }
+    let(:interest_rate) { 15 }
+
+    it 'converts the interest rate percentage to a decimal' do
+      expect(interest_rate_decimal).to eql(0.15)
+    end
+  end
 end
