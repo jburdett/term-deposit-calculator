@@ -1,5 +1,11 @@
 class TermDeposit
   MONTHS_IN_YEAR = 12.0
+  INTEREST_FREQUENCY_MAP = {
+    'Monthly' => :monthly,
+    'Quarterly' => :quarterly,
+    'Annually' => :annually,
+    'At Maturity' => :at_maturity
+  }
 
   def initialize(start_amount:, interest_rate:, investment_term:, interest_frequency:)
     @start_amount = start_amount
