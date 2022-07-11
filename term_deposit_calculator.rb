@@ -10,6 +10,6 @@ class TermDepositCalculator
       investment_term: input_manager.query_investment_term, 
       interest_frequency: input_manager.query_interest_frequency
     )
-    puts "Projected final balance is: #{term_deposit.final_balance}"
+    puts "Projected final balance is: $#{term_deposit.final_balance}"
   end
 end
